@@ -257,7 +257,7 @@ hook_check()
 	case "$2" in
 		init | pre-build | build | post-build) ;;
 		*) return 0 ;;
-	esac
+	esac 
 
 	CMDS="$(sed -n \
 		"s@^RK_${2//-/_}_CMDS[^ ]*\(.*\)\" # $(realpath "$1")\$@\1@ip" \
@@ -283,7 +283,7 @@ run_hooks()
 		for hook in $(find "$dir" -maxdepth 1 -name "*.sh" | sort); do
 			# Ignore unrelated hooks
 			hook_check "$hook" "$1" "$2" || continue
-
+            echo "### run hook=${hook} ###"
 			if ! "$hook" $@; then
 				HOOK_RET=$?
 				err_handler $HOOK_RET \
@@ -715,7 +715,7 @@ main()
 	run_build_hooks build $OPTIONS
 
 	# Post-build stage (firmware packing, etc.)
-	# run_build_hooks post-build $OPTIONS
+	run_build_hooks post-build $OPTIONS
 }
 
 if [ "$0" != "$BASH_SOURCE" ]; then
