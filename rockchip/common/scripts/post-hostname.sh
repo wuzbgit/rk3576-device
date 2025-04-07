@@ -9,12 +9,12 @@ if [ "$RK_ROOTFS_HOSTNAME_DEFAULT" -a "$POST_OS" = debian ]; then
 	exit 0
 fi
 
-#HOSTNAME="RK3576-Tronlong"
+HOSTNAME="RK3576-Boc"
 
-#message "Setting hostname: $HOSTNAME"
+message "Setting hostname: $HOSTNAME"
 
 mkdir -p "$TARGET_DIR/etc"
-#echo "$HOSTNAME" > "$TARGET_DIR/etc/hostname"
+echo "$HOSTNAME" > "$TARGET_DIR/etc/hostname"
 
 touch "$TARGET_DIR/etc/hosts"
 sed -i '/^127.0.1.1/d' "$TARGET_DIR/etc/hosts"

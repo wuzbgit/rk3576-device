@@ -4,7 +4,7 @@ comment "Rootfs system depends on linux kernel"
 	depends on !RK_KERNEL
 
 menuconfig RK_ROOTFS
-	bool "Rootfs (Buildroot|Debian|Yocto)"
+	bool "Rootfs (Buildroot|Debian|Yocto|Ubuntu)"
 	depends on RK_KERNEL
 	default y if !RK_AMP
 
@@ -13,12 +13,14 @@ if RK_ROOTFS
 source "Config.in.buildroot"
 source "Config.in.yocto"
 source "Config.in.debian"
+source "Config.in.ubuntu"
 
 config RK_ROOTFS_SYSTEM
 	string
 	default "buildroot" if RK_ROOTFS_SYSTEM_BUILDROOT
 	default "debian" if RK_ROOTFS_SYSTEM_DEBIAN
 	default "yocto" if RK_ROOTFS_SYSTEM_YOCTO
+	default "ubuntu" if RK_ROOTFS_SYSTEM_UBUNTU
 
 choice
 	prompt "default rootfs system"
@@ -32,6 +34,10 @@ config RK_ROOTFS_SYSTEM_BUILDROOT
 config RK_ROOTFS_SYSTEM_DEBIAN
 	bool "Debian"
 	depends on RK_DEBIAN
+
+config RK_ROOTFS_SYSTEM_UBUNTU
+	bool "Ubuntu"
+	depends on RK_UBUNTU
 
 config RK_ROOTFS_SYSTEM_YOCTO
 	bool "Yocto"
